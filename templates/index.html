@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>ChatBot</title>
+</head>
+<body>
+    <section class="msger">
+        <header class="msger-header">
+          <div class="msger-header-title">
+            <img src="{{ url_for('static', filename='bot.png') }}" alt="" srcset="">
+            <p style="margin-left: 10px;">ChatBot</p>
+          </div>
+        </header>
+        <main class="msger-chat">
+          
+        </main>
+        <form class="msger-inputarea">
+          <input type="text" class="msger-input" placeholder="Enter your message...">
+          <button type="submit" class="msger-send-btn" id="sendButton"></button>
+        </form>
+    </section>
+
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>
