@@ -1,10 +1,15 @@
 from flask import Flask, render_template, request, jsonify
 import requests
+import os
+from dotenv import load_dotenv
+
+load_dotenv()  # Load environment variables from .env file
 
 app = Flask(__name__, static_url_path='/static')
 
 API_URL = "https://api-inference.huggingface.co/models/wizzseen/Chatbot-peter"
-HEADERS = {"Authorization": "Bearer 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"}
+HEADERS = {"Authorization": f"Bearer {os.getenv('HF_API_KEY')}"}
+print(HEADERS)
 
 def query(payload):
     response = requests.post(API_URL, headers=HEADERS, json={"inputs": payload})
