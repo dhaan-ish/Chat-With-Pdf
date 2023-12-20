@@ -1,19 +1,13 @@
+from gradio_client import Client
 from flask import Flask, render_template, request, jsonify
-import requests
-import os
-from dotenv import load_dotenv
 
-load_dotenv()  # Load environment variables from .env file
+client = Client("https://5642b7c4782b646128.gradio.live/")
 
 app = Flask(__name__, static_url_path='/static')
 
-API_URL = "https://api-inference.huggingface.co/models/wizzseen/Chatbot-peter"
-HEADERS = {"Authorization": f"Bearer {os.getenv('HF_API_KEY')}"}
-print(HEADERS)
-
 def query(payload):
-    response = requests.post(API_URL, headers=HEADERS, json={"inputs": payload})
-    return response.json()
+    result = client.predict(payload, api_name="/predict")
+    return result
 
 @app.route("/")
 def index():
@@ -24,9 +18,12 @@ def index():
 def get_response():
     user_input = request.json.get("user_input", "")
     print(user_input)
+    
+    # Use Gradio client to get the response
     output = query(user_input)
     print(output)
-    return jsonify(output)
+    print(str(output))
+    return str(output)
 
 if __name__ == "__main__":
     app.run(debug=True)

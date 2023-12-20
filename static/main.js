@@ -9,6 +9,8 @@ const PERSON_NAME = "User";
 msgerForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const msgText = msgerInput.value;
+  msgerInput.value = "";
+  addChat("User", "user.png", "right", msgText);
   if (!msgText) return;
 
   // Send user input to the backend
@@ -29,19 +31,19 @@ async function sendUserInput(userInput) {
     body: JSON.stringify({ user_input: userInput }),
   });
 
-  return response.json();
+  return response.text();  // Use response.text() instead of response.json()
 }
 
 function handleResponse(response, userInput) {
   // Display user's input in the chat
-  addChat("User", "user.png", "right", userInput);
 
-  if (response.error) {
+  if (response.startsWith("ERROR:")) {
     // Handle error response
-    addChat("ChatBot", "/static/bot.png", "left", response.error);
+    const errorMessage = response.replace("ERROR:", "").trim();
+    addChat("ChatBot", "/static/bot.png", "left", errorMessage);
   } else {
     // Handle success response
-    addChat("ChatBot", "/static/bot.png", "left", response.generated_text);
+    addChat("ChatBot", "/static/bot.png", "left", response);
   }
 }
 
