@@ -10,12 +10,11 @@ To run Speak-To-Pdf, you can set up the environment using either a virtual envir
 ```bash
 
 # Activate the virtual environment
-  # On macOS/Linux
-venv\Scripts\activate      # On Windows
+  
+venv\Scripts\activate
 ```
-### Using Virtual Environment
+###  Install dependencies
 ```bash
-# Install dependencies
 pip install -r requirements.txt
 ```
 ## Usage
